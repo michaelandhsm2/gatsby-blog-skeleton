@@ -1,7 +1,6 @@
 {
-  "name": "gatsby-starter-hello-world",
-  "description": "Gatsby hello world starter",
-  "license": "MIT",
+  "name": "blog-micky",
+  "description": "Michael's GatsbyJS Static Markdown Blog",
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
