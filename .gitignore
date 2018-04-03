@@ -1,3 +1,6 @@
+# Git Hook
+.commit
+
 # Logs
 logs
 *.log
