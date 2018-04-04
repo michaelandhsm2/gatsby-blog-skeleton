@@ -8,11 +8,11 @@ export default ({ data }) => {
         <div key={node.id}>
 
           <Link to={node.fields.slug}>
-            <h1 style={{marginBottom: "0"}}>{node.frontmatter.title}</h1>
+            <h2 style={{marginBottom: "0"}}>{node.frontmatter.title}</h2>
           </Link>
           <p style={{margin: "0.5em 0", color: "#888888"}}>
             <span title={node.frontmatter.date}>{node.frontmatter.date}</span> &mdash;{" "}
-            {node.timeToRead} Min Read &mdash; In{" "}
+            {node.timeToRead} mins read &mdash; In{" "}
             {
               node.frontmatter.category.map((item, i) => (
                 <span>

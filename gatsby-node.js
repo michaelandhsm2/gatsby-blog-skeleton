@@ -26,6 +26,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         allMarkdownRemark {
           edges {
             node {
+              frontmatter{
+                title
+              }
               fields {
                 slug
                 sourceName
@@ -35,24 +38,38 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         }
       }
     `
-).then(result => {
-      result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        var component;
-        if(node.fields.sourceName == "posts"){
-          component = `./src/templates/post.js`
-        }else{
-          component = `./src/templates/page.js`
-        }
+  ).then(result => {
+
+    const posts = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fields.sourceName == "posts")
+    const pages = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fields.sourceName == "pages")
+
+    posts.forEach(({ node }, index ) => {
+        const prev = index === 0 ? false : posts[index - 1].node;
+        const next = index === posts.length - 1 ? false : posts[index + 1].node;
         createPage({
           path: node.fields.slug,
-          component: path.resolve(component),
+          component: path.resolve(`./src/templates/post.js`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
+            slug: node.fields.slug,
+            sourceName: node.fields.sourceName,
+            prev: prev,
+            next: next
+          },
+        })
+      })
+
+      pages.forEach(({node}) => {
+        createPage({
+          path: node.fields.slug,
+          component: path.resolve(`./src/templates/page.js`),
+          context: {
             slug: node.fields.slug,
             sourceName: node.fields.sourceName,
           },
         })
       })
+
       resolve()
     })
   })

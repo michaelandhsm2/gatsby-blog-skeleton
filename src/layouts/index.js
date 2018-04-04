@@ -23,7 +23,7 @@ export default class extends React.Component {
         <div style={{ textAlign:`justify` }}>
           <header style={{ margin: `0 auto`, maxWidth: 800, paddingTop: `1.25rem`}}>
             <Link to="/blog/" style={{ textShadow: `none`, backgroundImage: `none` }}>
-              <h3 style={{ display: `inline` }}>{data.site.siteMetadata.title}</h3>
+              <h2 style={{ display: `inline` }}>{data.site.siteMetadata.title}</h2>
             </Link>
             <ul style={{ listStyle: `none`, float: `right` }}>
               <ListLink to="/blog/">Home</ListLink>
