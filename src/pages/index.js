@@ -1,15 +1,17 @@
 import React from "react"
+import Link from "gatsby-link";
 
 export default ({ data }) => {
-  console.log(data);
   return (
     <div>
       <h2>{data.allMarkdownRemark.totalCount} Posts</h2>
       {data.allMarkdownRemark.edges.map(({ node }) => (
         <div key={node.id}>
+          <Link to={node.fields.slug}>
           <h3>
             {node.frontmatter.title} — {node.frontmatter.date}
           </h3>
+          </Link>
           <p>{node.excerpt}</p>
         </div>
       ))}
@@ -20,8 +22,8 @@ export default ({ data }) => {
 export const query = graphql`
   query PostQuery {
     allMarkdownRemark(
-      filter: {fileAbsolutePath: {regex: "/posts/"}},
-      sort: {fields: [frontmatter___date], order: DESC}
+      filter: {fields: {sourceName: {eq: "posts"}}},
+      sort: {fields: [frontmatter___date,frontmatter___title], order: DESC}
     ){
         totalCount
         edges {
@@ -30,10 +32,11 @@ export const query = graphql`
             frontmatter {
               title
               date(formatString: "DD MMMM YYYY")
-              category
             }
             excerpt
-            timeToRead
+            fields {
+              slug
+            }
           }
         }
     }
