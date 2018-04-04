@@ -28,6 +28,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             node {
               frontmatter{
                 title
+                tags
+                category
               }
               fields {
                 slug
@@ -40,12 +42,24 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     `
   ).then(result => {
 
-    const posts = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fields.sourceName == "posts")
-    const pages = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fields.sourceName == "pages")
+      const pages = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fields.sourceName == "pages")
+      pages.forEach(({node}) => {
+        createPage({
+          path: node.fields.slug,
+          component: path.resolve(`./src/templates/page.js`),
+          context: {
+            slug: node.fields.slug,
+            sourceName: node.fields.sourceName,
+          },
+        })
+      })
 
-    posts.forEach(({ node }, index ) => {
-        const prev = index === 0 ? false : posts[index - 1].node;
-        const next = index === posts.length - 1 ? false : posts[index + 1].node;
+      const posts = result.data.allMarkdownRemark.edges.filter(x => !pages.includes(x))
+      let tags = []
+      posts.forEach(({ node }, index ) => {
+        const prev = index === 0 ? false : posts[index - 1].node
+        const next = index === posts.length - 1 ? false : posts[index + 1].node
+        tags = tags.concat(node.frontmatter.tags)
         createPage({
           path: node.fields.slug,
           component: path.resolve(`./src/templates/post.js`),
@@ -59,16 +73,17 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         })
       })
 
-      pages.forEach(({node}) => {
+      tags = tags.filter( (value, index) => tags.indexOf(value) === index )
+
+      tags.forEach(tag => {
         createPage({
-          path: node.fields.slug,
-          component: path.resolve(`./src/templates/page.js`),
+          path: `/tags/${tag}/`,
+          component: path.resolve(`./src/templates/tags.js`),
           context: {
-            slug: node.fields.slug,
-            sourceName: node.fields.sourceName,
+            tag,
           },
-        })
-      })
+        });
+      });
 
       resolve()
     })

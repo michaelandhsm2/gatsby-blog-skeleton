@@ -27,7 +27,7 @@ export default ({ data, pathContext}) => {
           post.frontmatter.tags.map((item, i) => (
             <span key={i}>
               {i>0 && <span>, </span>}
-              <Link to='\'>{item}</Link>
+              <Link to={"/tags/"+item+"/"}>{item}</Link>
             </span>
           ))
         }</p>
