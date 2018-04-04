@@ -4,7 +4,8 @@ export default ({ data }) => {
   const post = data.markdownRemark;
   return (
     <div>
-      <div  style={{margin:`1.5rem 0`}} dangerouslySetInnerHTML={{ __html: post.html }} />
+      <h2 >{post.frontmatter.title}</h2>
+      <div style={{margin:`1.5rem 0`}} dangerouslySetInnerHTML={{ __html: post.html }} />
     </div>
   );
 };

@@ -27,8 +27,9 @@ export default class extends React.Component {
             </Link>
             <ul style={{ listStyle: `none`, float: `right` }}>
               <ListLink to="/blog/">Home</ListLink>
-              <ListLink to="/about/">About</ListLink>
-              <ListLink to="/test/">Test</ListLink>
+              {data.allMarkdownRemark.edges.map(({ node }) => (
+                <ListLink to={node.fields.slug}>{node.frontmatter.title}</ListLink>
+              ))}
             </ul>
           </header>
           <div style={{ margin: `1rem auto`, maxWidth: 800}}>
@@ -53,6 +54,19 @@ export const query = graphql`
     site{
       siteMetadata {
         title
+      }
+    }
+    allMarkdownRemark(
+      filter:{fields:{sourceName:{eq:"pages"}}}){
+      edges{
+        node{
+          frontmatter{
+            title
+          }
+          fields{
+            slug
+          }
+        }
       }
     }
   }
