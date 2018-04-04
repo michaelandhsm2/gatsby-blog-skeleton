@@ -56,21 +56,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       const posts = result.data.allMarkdownRemark.edges.filter(x => !pages.includes(x))
       let tags = []
+      let categories = new Map()
+
       posts.forEach(({ node }, index ) => {
-        const prev = index === 0 ? false : posts[index - 1].node
-        const next = index === posts.length - 1 ? false : posts[index + 1].node
         tags = tags.concat(node.frontmatter.tags)
-        createPage({
-          path: node.fields.slug,
-          component: path.resolve(`./src/templates/post.js`),
-          context: {
-            // Data passed to context is available in page queries as GraphQL variables.
-            slug: node.fields.slug,
-            sourceName: node.fields.sourceName,
-            prev: prev,
-            next: next
-          },
-        })
+        if (!categories[node.frontmatter.category]) {
+            categories[node.frontmatter.category] = [];
+        }
+        categories[node.frontmatter.category].push(node);
       })
 
       tags = tags.filter( (value, index) => tags.indexOf(value) === index )
@@ -82,6 +75,32 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           context: {
             tag,
           },
+        });
+      });
+
+      Object.keys(categories).forEach(category=>{
+        createPage({
+          path: `/category/${category}/`,
+          component: path.resolve(`./src/templates/categories.js`),
+          context: {
+            category: category,
+          },
+        });
+
+        categories[category].forEach((node,index) =>{
+          const prev = index === 0 ? false : categories[category][index - 1]
+          const next = index === categories[category].length - 1 ? false : categories[category][index + 1]
+          createPage({
+            path: node.fields.slug,
+            component: path.resolve(`./src/templates/post.js`),
+            context: {
+              // Data passed to context is available in page queries as GraphQL variables.
+              slug: node.fields.slug,
+              sourceName: node.fields.sourceName,
+              prev: prev,
+              next: next
+            },
+          })
         });
       });
 

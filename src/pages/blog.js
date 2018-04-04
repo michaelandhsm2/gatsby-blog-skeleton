@@ -12,15 +12,7 @@ export default ({ data }) => {
           </Link>
           <p style={{margin: "0.5em 0", color: "#888888"}}>
             <span title={node.frontmatter.date}>{node.frontmatter.date}</span> &mdash;{" "}
-            {node.timeToRead} mins read &mdash; In{" "}
-            {
-              node.frontmatter.category.map((item, i) => (
-                <span>
-                  {i>0 && <span>, </span>}
-                  <Link to='\'>{item}</Link>
-                </span>
-              ))
-            }
+            {node.timeToRead} mins read &mdash; In {<Link to={"/category/"+node.frontmatter.category+"/"}>{node.frontmatter.category}</Link>}
           </p>
           <p>{node.excerpt}</p>
         </div>
