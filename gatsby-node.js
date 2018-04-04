@@ -37,9 +37,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     `
 ).then(result => {
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        var component;
+        if(node.fields.sourceName == "posts"){
+          component = `./src/templates/post.js`
+        }else{
+          component = `./src/templates/page.js`
+        }
         createPage({
           path: node.fields.slug,
-          component: path.resolve(`./src/templates/post.js`),
+          component: path.resolve(component),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
             slug: node.fields.slug,
