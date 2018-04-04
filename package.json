@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "gatsby": "^1.9.241",
-    "gatsby-link": "^1.6.39"
+    "gatsby-link": "^1.6.39",
+    "gatsby-plugin-typography": "^1.7.18",
+    "typography-theme-fairy-gates": "^0.15.11"
   }
 }
