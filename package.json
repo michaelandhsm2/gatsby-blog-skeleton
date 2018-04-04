@@ -10,6 +10,8 @@
     "gatsby": "^1.9.241",
     "gatsby-link": "^1.6.39",
     "gatsby-plugin-typography": "^1.7.18",
+    "gatsby-source-filesystem": "^1.5.28",
+    "gatsby-transformer-remark": "^1.7.39",
     "typography-theme-fairy-gates": "^0.15.11"
   }
 }
