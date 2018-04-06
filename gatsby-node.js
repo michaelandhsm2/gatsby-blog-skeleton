@@ -44,6 +44,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       const pages = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fields.sourceName == "pages")
       pages.forEach(({node}) => {
+        console.log("    Page Created: "+node.frontmatter.title)
         createPage({
           path: node.fields.slug,
           component: path.resolve(`./src/templates/page.js`),
@@ -69,6 +70,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       tags = tags.filter( (value, index) => tags.indexOf(value) === index )
 
       tags.forEach(tag => {
+        console.log("    Tag Created: "+tag)
         createPage({
           path: `/tags/${tag}/`,
           component: path.resolve(`./src/templates/tags.js`),
@@ -79,6 +81,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       });
 
       Object.keys(categories).forEach(category=>{
+        console.log("    Category Created: "+category)
         createPage({
           path: `/category/${category}/`,
           component: path.resolve(`./src/templates/categories.js`),
@@ -90,6 +93,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         categories[category].forEach((node,index) =>{
           const prev = index === 0 ? false : categories[category][index - 1]
           const next = index === categories[category].length - 1 ? false : categories[category][index + 1]
+          console.log("    Post Created: "+node.frontmatter.title+" ("+ category +"), prev: "+ (prev && prev.frontmatter.title) +", next: "+ (next && next.frontmatter.title))
           createPage({
             path: node.fields.slug,
             component: path.resolve(`./src/templates/post.js`),

@@ -1,12 +1,9 @@
-import React from "react";
+import React from "react"
+import Page from "../components/pageTemplate"
 
 export default ({ data }) => {
-  const post = data.markdownRemark;
   return (
-    <div>
-      <h2 >{post.frontmatter.title}</h2>
-      <div style={{margin:`1.5rem 0`}} dangerouslySetInnerHTML={{ __html: post.html }} />
-    </div>
+    <Page post={data.markdownRemark} />
   );
 };
 

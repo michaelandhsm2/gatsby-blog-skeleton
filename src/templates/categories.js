@@ -1,29 +1,18 @@
-
 import React from "react"
-import Link from "gatsby-link"
+import Post from "../components/postQuery"
 
 export default ({ data, pathContext}) => {
-  console.log(data)
-  console.log(pathContext)
-
-  const { category } = pathContext;
-  const categoryHeader = `${data.allMarkdownRemark.totalCount} post${
-    data.allMarkdownRemark.totalCount === 1 ? "" : "s"
-  } in "${category}"`
-  const edges = data.allMarkdownRemark.edges
+  const totalCount = data.allMarkdownRemark.totalCount
   return (
     <div style={{margin:`1.5rem 0`}}>
-      <h2 >{categoryHeader}</h2>
-      <ul style={{margin:`1.5rem 0`, padding:`0 2rem`}} >
-        {edges.map(({ node }) => {
-          console.log(node)
+      <h2 >{totalCount} post{totalCount === 1 ? "" : "s"} in "{pathContext.category}"</h2>
+      <ol style={{margin:`1.5rem 0`, padding:`0 2rem`}} >
+        {data.allMarkdownRemark.edges.map(({ node }) => {
           return (
-            <li key={node.fields.slug}>
-              <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-            </li>
+            <Post key={node.slug} node={node}/>
           );
         })}
-      </ul>
+      </ol>
     </div>
   );
 };
@@ -40,7 +29,11 @@ export const query = graphql`
         node {
           frontmatter {
             title
+            date(formatString: "YYYY.MM.DD")
+            tags
           }
+          timeToRead
+          excerpt
           fields{
             slug
           }

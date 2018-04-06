@@ -1,12 +1,8 @@
 import React from "react";
-import Link from "gatsby-link";
-
-const ListLink = props =>
-  <li style={{ display: `inline-block`, marginRight: `1rem` }}>
-    <Link to={props.to}>
-      {props.children}
-    </Link>
-  </li>
+import Helmet from 'react-helmet';
+import Container from "../components/container";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default class extends React.Component {
   render() {
@@ -19,30 +15,17 @@ export default class extends React.Component {
       );
     }else{
       return(
-
-        <div style={{ textAlign:`justify` }}>
-          <header style={{ margin: `0 auto`, maxWidth: 800, paddingTop: `1.25rem`}}>
-            <Link to="/blog/" style={{ textShadow: `none`, backgroundImage: `none` }}>
-              <h2 style={{ display: `inline` }}>{data.site.siteMetadata.title}</h2>
-            </Link>
-            <ul style={{ listStyle: `none`, float: `right` }}>
-              <ListLink to="/blog/">Home</ListLink>
-              {data.allMarkdownRemark.edges.map(({ node }) => (
-                <ListLink to={node.fields.slug}>{node.frontmatter.title}</ListLink>
-              ))}
-            </ul>
-          </header>
-          <div style={{ margin: `1rem auto`, maxWidth: 800}}>
-            {children()}
-          </div>
-          <footer style={{ margin: `2.5rem auto 0 auto`, maxWidth: 800, textAlign:`center`, padding: `1.25rem 0`, borderTop: `1px solid #c5c5c5`}}>
-              <span>© 2018 by Michael Fu</span>
-              <ul style={{ listStyle: `none`, marginBottom: `0`, paddingBottom: `0`}}>
-                <ListLink to="/blog/">Home</ListLink>
-                <ListLink to="/about/">About</ListLink>
-                <ListLink to="/test/">Test</ListLink>
-              </ul>
-          </footer>
+        <div>
+          <Helmet>
+            <title>TBD</title>
+          </Helmet>
+          <Container>
+            <div style={{margin:`0`}}>
+              <Header style={{marginTop: `1.25rem`}} title={data.site.siteMetadata.title} pages={data.allMarkdownRemark.edges}/>
+              {children()}
+            </div>
+            <Footer/>
+          </Container>
         </div>
       );
     }
