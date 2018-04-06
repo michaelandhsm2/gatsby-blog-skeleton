@@ -1,5 +1,11 @@
 import React from "react";
 import Link from "gatsby-link";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+
+
+TimeAgo.locale(en)
+const timeAgo = new TimeAgo('en-US')
 
 const ListItem =  props =>
   <span key={props.index}>
@@ -44,7 +50,9 @@ export default class extends React.Component {
         {title}
         { node.frontmatter.date &&
           <p style={subtitleStyle}>
-            <span title={node.frontmatter.date}>{node.frontmatter.date}</span> &mdash;
+            <span title={node.frontmatter.date}>
+              {timeAgo.format(new Date(node.frontmatter.date))}
+            </span> &mdash;
             {" "+node.timeToRead} mins read {tagsOrCategory}
           </p>
         }

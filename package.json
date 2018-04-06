@@ -19,6 +19,7 @@
     "gatsby-remark-responsive-iframe": "^1.4.18",
     "gatsby-source-filesystem": "^1.5.28",
     "gatsby-transformer-remark": "^1.7.39",
+    "javascript-time-ago": "^1.0.30",
     "react-helmet": "^5.2.0",
     "typography-theme-fairy-gates": "^0.15.11"
   }

@@ -24,7 +24,7 @@ export const query = graphql`
         node {
           frontmatter {
             title
-            date(formatString: "YYYY.MM.DD")
+            date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
             tags
           }
           timeToRead
