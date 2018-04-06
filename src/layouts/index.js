@@ -4,6 +4,8 @@ import Container from "../components/container";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
+require("prismjs/themes/prism-tomorrow.css");
+
 export default class extends React.Component {
   render() {
     const { children, location, data } = this.props;
@@ -40,7 +42,9 @@ export const query = graphql`
       }
     }
     allMarkdownRemark(
-      filter:{fields:{sourceName:{eq:"pages"}}}){
+      filter:{fields:{sourceName:{eq:"pages"}}},
+      sort: {fields: [frontmatter___title], order: ASC},      
+    ){
       edges{
         node{
           frontmatter{

@@ -10,12 +10,7 @@ export default class extends React.Component {
       <div style={{paddingBottom:`3rem` }}>
         {1 <= page - 1 &&
           <span style={{float: `left` }}>
-            Previous: <Link  to={baseSlug}>
-            Page {page-1} </Link>
-          </span>}
-        {1 < page - 1 &&
-          <span style={{float: `left` }}>
-            Previous: <Link  to={baseSlug+(page - 1)+"/"}>
+            Previous: <Link  to={page == 2 ? baseSlug : baseSlug+(page - 1)+"/"}>
             Page {page-1} </Link>
           </span>}
         {totalPages >= page + 1 &&

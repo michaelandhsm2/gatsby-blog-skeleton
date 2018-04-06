@@ -7,11 +7,13 @@ export default class extends React.Component {
 
     const { edges, totalCount, pathContext, titleConnection } = this.props;
 
+    const style = titleConnection ? {padding:`0 2rem`, margin:`1.5rem 0`} : {margin:`1.5rem 0`}
+
     return(
-      <div style={{margin:`1.5rem 0`}}>{titleConnection &&
+      <div style={{}}>{titleConnection &&
         <h2 >{totalCount} post{totalCount === 1 ? "" : "s"} {titleConnection} "{pathContext.key}"</h2>
       }
-        <ol style={{margin:`1.5rem 0`, padding:`0 2rem`}} >
+        <ol style={style} >
           {edges.map(({ node }) => {
             return (
               <PostQuery key={node.fields.slug} node={node}/>

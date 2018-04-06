@@ -14,22 +14,24 @@ export default class extends React.Component {
     const { next, prev } = path;
 
     return(
-      <div style={{marginBottom:`3rem` }}>
+      <div style={{marginBottom:`1rem` }}>
         <p style={{marginBottom:`0.5rem` }}>Tags:{" "}{
           post.frontmatter.tags.map((item, i) => (
             <ListItem key={i} item={item} index={i}  />
           ))
         }</p>
-        {prev &&
-          <span style={{float: `left` }}>
-            Previous: <Link  to={prev.fields.slug}>
-            {prev.frontmatter.title} </Link>
-          </span>}
-        {next &&
-          <span style={{float: `right` }}>
-            Next: <Link  to={next.fields.slug}>
-            {next.frontmatter.title} </Link>
-          </span>}
+        <div style={{display:`inline-flex`}}>
+          {prev &&
+            <span style={{float: `left` }}>
+              Previous: <Link  to={prev.fields.slug}>
+              {prev.frontmatter.title} </Link>
+            </span>}
+          {next &&
+            <span style={{float: `right` }}>
+              Next: <Link  to={next.fields.slug}>
+              {next.frontmatter.title} </Link>
+            </span>}
+        </div>
       </div>
     );
   }
