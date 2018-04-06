@@ -1,28 +1,23 @@
 import React from "react"
-import Post from "../components/postQuery"
+import Post from "../components/postQueryPage"
 
 export default ({ data, pathContext}) => {
-  const totalCount = data.allMarkdownRemark.totalCount
   return (
-    <div style={{margin:`1.5rem 0`}}>
-      <h2 >{totalCount} post{totalCount === 1 ? "" : "s"} in "{pathContext.category}"</h2>
-      <ol style={{margin:`1.5rem 0`, padding:`0 2rem`}} >
-        {data.allMarkdownRemark.edges.map(({ node }) => {
-          return (
-            <Post key={node.slug} node={node}/>
-          );
-        })}
-      </ol>
-    </div>
+    <Post totalCount={data.allMarkdownRemark.totalCount}
+          edges={data.allMarkdownRemark.edges}
+          pathContext={pathContext}
+          titleConnection="in category"
+          />
   );
 };
 
 export const query = graphql`
-  query category($category: String) {
+  query category($key: String,$numPerPage: Int, $startingIndex: Int) {
     allMarkdownRemark(
-      limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { category: { eq: $category } } }
+      sort: { fields: [frontmatter___date], order: DESC },
+      filter: { frontmatter: { category: { eq: $key } } },
+      skip: $startingIndex,
+      limit: $numPerPage
     ) {
       totalCount
       edges {

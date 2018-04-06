@@ -33,7 +33,7 @@ export default class extends React.Component {
       node.frontmatter.tags ? (
         <span>&mdash; Tagged with{" "}{
           node.frontmatter.tags.map((item, i) => (
-            <ListItem index={i} item={item} />
+            <ListItem item={item} key={i} index={i} />
           ))
         }</span>
       ):( false )

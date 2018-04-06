@@ -1,21 +1,21 @@
 import React from "react"
-import Post from "../components/postQuery"
+import Post from "../components/postQueryPage"
 
-export default ({ data }) => {
+export default ({ data, pathContext }) => {
   return (
-    <div>
-      {data.allMarkdownRemark.edges.map(({ node }) => (
-        <Post key={node.fields.slug} node={node}/>
-      ))}
-    </div>
+    <Post edges={data.allMarkdownRemark.edges}
+          pathContext={pathContext}
+          />
   );
 };
 
 export const query = graphql`
-  query PostQuery {
+  query PostQuery($numPerPage: Int, $startingIndex: Int) {
     allMarkdownRemark(
       filter: {fields: {sourceName: {eq: "posts"}}},
-      sort: {fields: [frontmatter___date,frontmatter___title], order: DESC}
+      sort: {fields: [frontmatter___date,frontmatter___title], order: DESC},
+      skip: $startingIndex,
+      limit: $numPerPage
     ){
         totalCount
         edges {

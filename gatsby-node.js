@@ -56,38 +56,44 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       })
 
       const posts = result.data.allMarkdownRemark.edges.filter(x => !pages.includes(x))
-      let tags = []
+      let tags = new Map()
       let categories = new Map()
 
       posts.forEach(({ node }, index ) => {
-        tags = tags.concat(node.frontmatter.tags)
+        node.frontmatter.tags.forEach(tag=>{
+          if (!tags[tag]) {
+              tags[tag] = [];
+          }
+          tags[tag].push(node);
+        });
+
         if (!categories[node.frontmatter.category]) {
             categories[node.frontmatter.category] = [];
         }
         categories[node.frontmatter.category].push(node);
-      })
+      });
 
-      tags = tags.filter( (value, index) => tags.indexOf(value) === index )
-
-      tags.forEach(tag => {
+      Object.keys(tags).forEach(tag=>{
         console.log("    Tag Created: "+tag)
-        createPage({
+        createPaginatedPages({
+          createPage: createPage,
+          numOfItems: tags[tag].length,
+          numPerPage: 5,
           path: `/tags/${tag}/`,
           component: path.resolve(`./src/templates/tags.js`),
-          context: {
-            tag,
-          },
+          key: tag,
         });
       });
 
       Object.keys(categories).forEach(category=>{
         console.log("    Category Created: "+category)
-        createPage({
+        createPaginatedPages({
+          createPage: createPage,
+          numOfItems: categories[category].length,
+          numPerPage: 5,
           path: `/category/${category}/`,
           component: path.resolve(`./src/templates/categories.js`),
-          context: {
-            category: category,
-          },
+          key: category
         });
 
         categories[category].forEach((node,index) =>{
@@ -108,7 +114,40 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         });
       });
 
+      createPaginatedPages({
+        createPage: createPage,
+        numOfItems: posts.length,
+        path: '/blog/',
+        component: path.resolve(`./src/templates/blog.js`),
+        numPerPage: 5
+      })
+
       resolve()
     })
   })
 };
+
+var createPaginatedPages = function({
+  createPage,
+  numOfItems,
+  path,
+  component,
+  key = null,
+  numPerPage = 5
+}){
+  var pages = Math.ceil(numOfItems/numPerPage)
+  for(var index = 0; index < pages; index++){
+    console.log("    Pagination Created: "+((index==0)? path : path+(index+1)+"/"))
+    createPage({
+      path: ((index==0)? path : path+(index+1)+"/"),
+      component: component,
+      context: Object.assign({
+        key: key,
+        numPerPage,
+        totalPages: pages,
+        startingIndex: index*numPerPage,
+        baseSlug: path,
+      })
+    });
+  }
+}

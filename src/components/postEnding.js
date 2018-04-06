@@ -17,7 +17,7 @@ export default class extends React.Component {
       <div style={{marginBottom:`3rem` }}>
         <p style={{marginBottom:`0.5rem` }}>Tags:{" "}{
           post.frontmatter.tags.map((item, i) => (
-            <ListItem index={i} item={item} />
+            <ListItem key={i} item={item} index={i}  />
           ))
         }</p>
         {prev &&
