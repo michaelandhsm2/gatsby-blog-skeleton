@@ -13,7 +13,7 @@ export const query = graphql`
       html
       frontmatter {
         title
-        date(formatString: "YYYY.MM.DD")
+        date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
         category
         tags
       }
