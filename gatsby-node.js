@@ -60,7 +60,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       let categories = new Map()
 
       posts.forEach(({ node }, index ) => {
-        node.frontmatter.tags.forEach(tag=>{
+        node.frontmatter.tags && node.frontmatter.tags.forEach(tag=>{
           if (!tags[tag]) {
               tags[tag] = [];
           }
