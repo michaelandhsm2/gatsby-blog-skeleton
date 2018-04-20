@@ -1,37 +1,36 @@
 import React from "react";
 import Link from "gatsby-link";
-
-const linkStyle = {
-  backgroundImage: `none`,
-  textShadow: `none`
-};
-
-const listStyle = {
-  listStyle: `none`,
-  float: `right`
-};
-
-const ListLink = props =>
-  <li style={{ display: `inline-block`, marginRight: `1rem` }}>
-    <Link to={props.to}>
-      {props.children}
-    </Link>
-  </li>
+import {
+  Container,
+  Menu,
+  Segment
+} from 'semantic-ui-react'
 
 export default class extends React.Component {
   render() {
     const { title, pages } = this.props;
     return(
       <header>
-        <Link to="/blog/" style={linkStyle}>
-          <h2 style={{display:`inline`}}>{title}</h2>
-        </Link>
-        <ul style={listStyle}>
-          <ListLink to="/blog/">Home</ListLink>
-          {pages.map(({ node }) => (
-            <ListLink to={node.fields.slug}  key={node.fields.slug}>{node.frontmatter.title}</ListLink>
-          ))}
-        </ul>
+        <Segment>
+          <Menu fixed='top' inverted>
+            <Container text>
+              <Menu.Item header>
+                <Link to="/blog/">{title}</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/">Home</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to="/blog">Blog</Link>
+              </Menu.Item>
+              {pages.map(({ node }) => (
+                <Menu.Item key={node.fields.slug}>
+                  <Link to={node.fields.slug} >{node.frontmatter.title}</Link>
+                </Menu.Item>
+              ))}
+            </Container>
+          </Menu>
+        </Segment>
       </header>
     );
   }

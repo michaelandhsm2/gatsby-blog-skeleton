@@ -1,11 +1,18 @@
 import React from "react";
 import Link from "gatsby-link";
+import {
+  Container,
+  Grid,
+  Header,
+  List,
+  Segment
+} from 'semantic-ui-react'
 
-const ListItem =  props =>
-  <span key={props.index}>
-    {props.index>0 && <span>, </span>}
-    <Link to={"/tags/"+props.item+"/"}>{props.item}</Link>
-  </span>
+const computerStyle = {
+  padding: '1em 1em',
+  minHeight: '6em'
+};
+
 
 export default class extends React.Component {
   render() {
@@ -13,26 +20,76 @@ export default class extends React.Component {
     const { post, path } = this.props;
     const { next, prev } = path;
 
-    return(
-      <div style={{marginBottom:`1rem` }}>
-        <p style={{marginBottom:`0.5rem` }}>Tags:{" "}{
+    const tagSection = (
+      <div>
+        <Header as='h4' content="Tags" />
+        <List horizontal link>{
           post.frontmatter.tags.map((item, i) => (
-            <ListItem key={i} item={item} index={i}  />
+            <List.Item key={i}>
+              <Link to={"/tags/"+item+"/"}>{item}</Link>
+            </List.Item>
           ))
-        }</p>
-        <div style={{display:`inline-flex`}}>
-          {prev &&
-            <span style={{float: `left` }}>
-              Previous: <Link  to={prev.fields.slug}>
-              {prev.frontmatter.title} </Link>
-            </span>}
-          {next &&
-            <span style={{float: `right` }}>
-              Next: <Link  to={next.fields.slug}>
-              {next.frontmatter.title} </Link>
-            </span>}
-        </div>
+        }</List>
       </div>
+    )
+
+    const prevSection = ( prev &&
+      <div>
+        <Header as='h4' content='Previous in this Category' />
+        <List horizontal link>
+          <List.Item><Link to={prev.fields.slug}>{prev.frontmatter.title}</Link></List.Item>
+        </List>
+      </div>
+    )
+
+    const nextSection = ( next &&
+      <div>
+        <Header as='h4' content='Next in this Category' />
+        <List horizontal link>
+          <List.Item><Link to={next.fields.slug}>{next.frontmatter.title}</Link></List.Item>
+        </List>
+      </div>
+    )
+
+    return(
+
+      <Segment vertical
+      style={{ paddingTop: '2em' }} >
+        <Container textAlign='center'>
+          <Grid columns='equal' divided stackable  verticalAlign='middle'>
+
+            <Grid.Row only='computer tablet'>
+              <Grid.Column style={computerStyle}>
+                {prevSection}
+              </Grid.Column>
+              <Grid.Column style={computerStyle} width={6}>
+                {tagSection}
+              </Grid.Column>
+              <Grid.Column style={computerStyle}>
+                {nextSection}
+              </Grid.Column>
+            </Grid.Row>
+
+            <Grid.Row only="mobile">
+              <Grid.Column>
+                {tagSection}
+              </Grid.Column>
+              { prev &&                
+                <Grid.Column>
+                  {prevSection}
+                </Grid.Column>
+              }
+              { next &&
+                <Grid.Column >
+                  {nextSection}
+                </Grid.Column>
+              }
+            </Grid.Row>
+
+          </Grid>
+        </Container>
+      </Segment>
+
     );
   }
 }

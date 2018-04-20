@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "gatsby-link";
+import {Header} from 'semantic-ui-react'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 
@@ -7,16 +8,15 @@ import en from 'javascript-time-ago/locale/en'
 TimeAgo.locale(en)
 const timeAgo = new TimeAgo('en-US')
 
+const titleStyle = {
+  margin: `0.5em 0`
+};
+
 const ListItem =  props =>
   <span key={props.index}>
     {props.index>0 && <span>, </span>}
     <Link to={"/tags/"+props.item+"/"}>{props.item}</Link>
   </span>
-
-const subtitleStyle = {
-  margin: `0.5em 0`,
-  color: `#888888`
-};
 
 export default class extends React.Component {
   render() {
@@ -24,11 +24,11 @@ export default class extends React.Component {
     const { node } = this.props;
 
     const title = node.fields && node.fields.slug ? (
-        <Link to={node.fields.slug}>
-          <h2 style={{marginBottom: `0`}}>{node.frontmatter.title}</h2>
+        <Link to={node.fields.slug} style={{color:'black'}}>
+          {node.frontmatter.title}
         </Link>
     ):(
-        <h2 style={{marginBottom: `0`}}>{node.frontmatter.title}</h2>
+        <span>{node.frontmatter.title}</span>
     )
 
     const tagsOrCategory = node.frontmatter.category && node.frontmatter.category!="TBD" ? (
@@ -46,17 +46,15 @@ export default class extends React.Component {
     )
 
     return(
-      <div>
+      <Header as='h2' style={titleStyle}>
         {title}
         { node.frontmatter.date &&
-          <p style={subtitleStyle}>
-            <span title={node.frontmatter.date}>
-              {timeAgo.format(new Date(node.frontmatter.date))}
-            </span> &mdash;
-            {" "+node.timeToRead} mins read {tagsOrCategory}
-          </p>
+        <Header.Subheader>
+          {timeAgo.format(new Date(node.frontmatter.date))} &mdash;
+          {" "+node.timeToRead} mins read {tagsOrCategory}
+        </Header.Subheader>
         }
-      </div>
+      </Header>
     );
   }
 }
