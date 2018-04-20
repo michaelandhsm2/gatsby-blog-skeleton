@@ -4,12 +4,13 @@ import Container from "../components/container";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
+require ("semantic-ui-css/semantic.min.css");
 require("prismjs/themes/prism-tomorrow.css");
 
 export default class extends React.Component {
   render() {
     const { children, location, data } = this.props;
-    if(location.pathname == "/"){
+    if(location.pathname == "/test2"){
       return(
         <div>
         {children()}
@@ -43,7 +44,7 @@ export const query = graphql`
     }
     allMarkdownRemark(
       filter:{fields:{sourceName:{eq:"pages"}}},
-      sort: {fields: [frontmatter___title], order: ASC},      
+      sort: {fields: [frontmatter___title], order: ASC},
     ){
       edges{
         node{

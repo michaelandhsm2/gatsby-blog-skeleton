@@ -21,6 +21,8 @@
     "gatsby-transformer-remark": "^1.7.39",
     "javascript-time-ago": "^1.0.30",
     "react-helmet": "^5.2.0",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.1",
     "typography-theme-fairy-gates": "^0.15.11"
   }
 }
