@@ -3,6 +3,11 @@ module.exports = {
     title: `Michael's Website`,
     siteUrl: `http://michaelandhsm2.me`,
     description: `A static personal blog built with react.`,
+    landing:{
+      title: "Hi, I'm Michael.",
+      subtitle: "Currently a undergrad, studing CS in Taipei Tech",
+      callToAction: "Enter My Blog"
+    }
   },
 
   plugins: [

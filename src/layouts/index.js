@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import {Container} from 'semantic-ui-react';
 import Header from "../components/header";
 import Footer from "../components/footer";
+import favicon from './favicon.ico';
 
 require ("semantic-ui-css/semantic.min.css");
 require("prismjs/themes/prism-tomorrow.css");
@@ -18,16 +19,25 @@ export default class extends React.Component {
   render() {
     const { children, location, data } = this.props;
 
-    return(
+    const mainText = (location.pathname=='/') ? (
+      <span style={bodyStyle}>{children()}</span>
+    ) : (
       <div style={bodyStyle}>
-        <Helmet>
-          <title>{data.site.siteMetadata.title}</title>
-        </Helmet>
         <Header title={data.site.siteMetadata.title} pages={data.allMarkdownRemark.edges}/>
         <Container style={{flex: 1, padding: '2rem'}} text>
           {children()}
         </Container>
         <Footer/>
+      </div>
+    )
+
+    return(
+      <div style={bodyStyle}>
+        <Helmet>
+          <title>{data.site.siteMetadata.title}</title>
+          <link rel="shortcut icon" type="image/png" href={favicon} />
+        </Helmet>
+        {mainText}
       </div>
     );
   }
