@@ -20,13 +20,10 @@ export default class extends React.Component {
       <Menu fixed='top' inverted>
         <Container text>
           <Menu.Item header>
-            <Link to="/blog/">{title}</Link>
+            <Link to="/">{title}</Link>
           </Menu.Item>
           <Dropdown item text="Menu">
             <Dropdown.Menu >
-              <Dropdown.Item >
-                <Link to="/" style={dropdownStyle}>Home</Link>
-              </Dropdown.Item>
               <Dropdown.Item >
                 <Link to="/blog" style={dropdownStyle}>Blog</Link>
               </Dropdown.Item>
@@ -45,10 +42,7 @@ export default class extends React.Component {
       <Menu fixed='top' inverted>
         <Container text>
           <Menu.Item header>
-            <Link to="/blog/">{title}</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/">Home</Link>
+            <Link to="/">{title}</Link>
           </Menu.Item>
           <Menu.Item>
             <Link to="/blog">Blog</Link>
@@ -64,13 +58,13 @@ export default class extends React.Component {
 
     return(
       <header>
-        <Responsive as={Segment}  {...Responsive.onlyMobile}>
+        <Responsive as={Segment} {...Responsive.onlyMobile}>
           {mobileMenu}
         </Responsive>
-        <Responsive as={Segment} text {...Responsive.onlyTablet}>
+        <Responsive as={Segment} {...Responsive.onlyTablet}>
           {notMobileMenu}
         </Responsive>
-        <Responsive as={Segment} text {...Responsive.onlyComputer}>
+        <Responsive as={Segment} {...Responsive.onlyComputer}>
           {notMobileMenu}
         </Responsive>
       </header>

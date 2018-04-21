@@ -6,7 +6,6 @@ import Footer from "../components/footer";
 import favicon from './favicon.ico';
 
 require ("semantic-ui-css/semantic.min.css");
-require("prismjs/themes/prism-tomorrow.css");
 
 const bodyStyle = {
   display: 'flex',

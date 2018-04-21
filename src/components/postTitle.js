@@ -46,7 +46,7 @@ export default class extends React.Component {
     )
 
     return(
-      <Header as='h2' style={titleStyle}>
+      <Header as='h1' style={titleStyle}>
         {title}
         { node.frontmatter.date &&
         <Header.Subheader>
