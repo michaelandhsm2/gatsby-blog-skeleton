@@ -22,15 +22,9 @@ export const query = graphql`
       totalCount
       edges {
         node {
+          ...queryPageFragment
           frontmatter {
-            title
-            date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
             tags
-          }
-          timeToRead
-          excerpt
-          fields{
-            slug
           }
         }
       }

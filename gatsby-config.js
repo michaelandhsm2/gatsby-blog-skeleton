@@ -18,7 +18,6 @@ module.exports = {
         plugins: [
           `gatsby-remark-prismjs`,
           `gatsby-plugin-sharp`,
-          `gatsby-plugin-catch-links`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-responsive-iframe`,
           {
@@ -33,12 +32,6 @@ module.exports = {
         ],
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-typography`,
-    //   options: {
-    //     pathToConfigModule: `src/utils/typography.js`,
-    //   },
-    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

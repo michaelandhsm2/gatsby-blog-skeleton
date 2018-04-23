@@ -26,7 +26,7 @@ export default class extends React.Component {
             <Segment vertical style={{padding:'0.5em 0rem 1.5em'}} key={node.fields.slug}>
               <PostTitle node={node}/>
               <Link to={node.fields.slug} style={{color:'rgba(0, 0, 0, .87)'}}>
-                <p>{node.excerpt}</p>
+                <p>{(node.frontmatter.excerpt) ? node.frontmatter.excerpt : node.excerpt}</p>
               </Link>
             </Segment>
           );
@@ -36,3 +36,18 @@ export default class extends React.Component {
     );
   }
 }
+
+export const query = graphql`
+  fragment queryPageFragment on MarkdownRemark {
+    frontmatter {
+      title
+      date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
+      excerpt
+    }
+    timeToRead
+    excerpt
+    fields{
+      slug
+    }
+  }
+`;
