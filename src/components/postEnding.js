@@ -13,6 +13,10 @@ const computerStyle = {
   minHeight: '6em'
 };
 
+const linkStyle = {
+  color: "#818D92"
+}
+
 
 export default class extends React.Component {
   render() {
@@ -26,7 +30,7 @@ export default class extends React.Component {
         <List horizontal link>{
           post.frontmatter.tags.map((item, i) => (
             <List.Item key={i}>
-              <Link to={"/tags/"+item+"/"}>{item}</Link>
+              <Link style={linkStyle} to={"/tags/"+item+"/"}>{item}</Link>
             </List.Item>
           ))
         }</List>
@@ -37,7 +41,7 @@ export default class extends React.Component {
       <div>
         <Header as='h4' content='Previous in this Category' />
         <List horizontal link>
-          <List.Item><Link to={prev.fields.slug}>{prev.frontmatter.title}</Link></List.Item>
+          <List.Item><Link style={linkStyle} to={prev.fields.slug}>{prev.frontmatter.title}</Link></List.Item>
         </List>
       </div>
     )
@@ -46,7 +50,7 @@ export default class extends React.Component {
       <div>
         <Header as='h4' content='Next in this Category' />
         <List horizontal link>
-          <List.Item><Link to={next.fields.slug}>{next.frontmatter.title}</Link></List.Item>
+          <List.Item><Link style={linkStyle} to={next.fields.slug}>{next.frontmatter.title}</Link></List.Item>
         </List>
       </div>
     )
@@ -74,7 +78,7 @@ export default class extends React.Component {
               <Grid.Column>
                 {tagSection}
               </Grid.Column>
-              { prev &&                
+              { prev &&
                 <Grid.Column>
                   {prevSection}
                 </Grid.Column>

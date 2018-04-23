@@ -9,6 +9,9 @@ import {
 } from 'semantic-ui-react'
 
 
+const linkStyle = {
+  color: "#818D92"
+}
 
 export default class extends React.Component {
   render() {
@@ -19,7 +22,8 @@ export default class extends React.Component {
       <div>
         <Header as='h4' content='Previous Page' />
         <List horizontal link>
-          <List.Item><Link to={page == 2 ? baseSlug : baseSlug+(page - 1)+"/"}>Page {page-1}</Link></List.Item>
+          <List.Item><Link style={linkStyle}
+             to={page == 2 ? baseSlug : baseSlug+(page - 1)+"/"}>Page {page-1}</Link></List.Item>
         </List>
       </div>
     )
@@ -28,7 +32,8 @@ export default class extends React.Component {
       <div>
         <Header as='h4' content='Next Page' />
         <List horizontal link>
-          <List.Item><Link to={baseSlug+(page + 1)+"/"}>Page {page + 1}</Link></List.Item>
+          <List.Item><Link style={linkStyle}
+             to={baseSlug+(page + 1)+"/"}>Page {page + 1}</Link></List.Item>
         </List>
       </div>
     )

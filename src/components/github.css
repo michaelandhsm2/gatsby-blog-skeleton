@@ -15,7 +15,7 @@
 }
 
 .markdown-body .pl-c {
-  color: #6a737d;
+  color: #818D92;
 }
 
 .markdown-body .pl-c1,
@@ -226,7 +226,7 @@
   overflow: hidden;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #dfe2e5;
+  border-bottom: 1px solid #CBC5EA;
 }
 
 .markdown-body hr::before {
@@ -263,6 +263,10 @@
 .markdown-body h1 {
   font-size: 32px;
   font-weight: 600;
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #CBC5EA;
+
 }
 
 .markdown-body h2 {
@@ -422,8 +426,8 @@
 
 .markdown-body blockquote {
   padding: 0 1em;
-  color: #6a737d;
-  border-left: 0.25em solid #dfe2e5;
+  color: #818D92;
+  border-left: 0.25em solid #CBC5EA;
 }
 
 .markdown-body blockquote>:first-child {
@@ -454,8 +458,8 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -504,7 +508,7 @@
 
 .markdown-body h4 {
   font-size: 1em;
-  color: #6a737d;
+  color: #818D92;
 }
 
 .markdown-body ul,
@@ -557,21 +561,22 @@
 
 .markdown-body table th {
   font-weight: 600;
+  background-color: #F7F7F7;
 }
 
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid #dfe2e5;
+  border: 1px solid #CBC5EA;
 }
 
 .markdown-body table tr {
-  background-color: #fff;
+  background-color: transparent;
   border-top: 1px solid #c6cbd1;
 }
 
-.markdown-body table tr:nth-child(2n) {
-  background-color: #f6f8fa;
+.markdown-body table tr:nth-child(2n-1) {
+  background-color: rgba(203, 197, 234, 0.3);
 }
 
 .markdown-body img {
@@ -591,7 +596,7 @@
 .markdown-body code {
   padding: 0.2em 0.4em;
   margin: 0;
-  font-size: 85%;
+  /* font-size: 85%; */
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   border-radius: 3px;
 }
@@ -643,7 +648,7 @@
   overflow: auto;
   /* font-size: 85%; */
   line-height: 1.5;
-  background-color: #2D2D2D;
+  background-color: #24292E;
   border-radius: 3px;
 }
 
