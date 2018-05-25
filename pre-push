@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# !! Remember to 'chmod +x /.git/hooks/pre-push' !!-
+
+target_branch="master"
+
+branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+if [ "$target_branch" == "$branch" ];
+then
+	echo "   "
+	echo "   Pre-Push: Build Gastby for $branch"
+	echo "   "
+	gatsby build
+	git add --force public/
+  git commit --amend --no-edit --no-verify
+	echo "   "
+	echo "   Pre-Push: Gatsby built!"
+	echo "   "
+fi
+
+exit 0
+
